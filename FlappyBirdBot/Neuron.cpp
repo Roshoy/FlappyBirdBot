@@ -64,14 +64,14 @@ bool Neuron::SetWeight(double w)
 	return false;
 }
 
-double Neuron::Calculate(double input[])
+double Neuron::Calculate(std::vector<double> signals) const
 {
 	double result = _weights[_weightCount-1];
 	for(int i=0; i<_weightCount-1 ; i++)
 	{
-		result += input[i] * _weights[i];
+		result += signals[i] * _weights[i];
 	}
-	delete[] input;
+	result /= _weightCount;
 	return result;
 }
 
@@ -83,10 +83,15 @@ void Neuron::RandomizeAll()
 	}
 }
 
-void Neuron::RandomizeALittle()
+void Neuron::Mutate(double mutationPercent)
 {
-	_weights[rand() % _weightCount] = 2 * float((rand() % RandRadius))/RandRadius - 1;
-	
+	for(int i = 0; i < _weightCount; i++)
+	{
+		if(rand()%100 < mutationPercent)
+		{
+			_weights[i] = 2 * float((rand() % RandRadius)) / RandRadius - 1;
+		}
+	}
 }
 
 double Neuron::GetWeight(int w) const

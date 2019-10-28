@@ -15,15 +15,15 @@ Player::Player(double size, const sf::Vector2f & position) :
 void Player::Update()
 {
 	_body.move(0, std::max((float)_speed, -_body.getPosition().y));
-	if(_body.getPosition().y <= 0)
+	/*if(_body.getPosition().y <= 0)
 	{
 		_speed = 0;
 		_body.setPosition(sf::Vector2f(_body.getPosition().x, 1));
-	}
-	else
-	{
+	}*/
+	/*else
+	{*/
 		_speed += Gravity;
-	}
+	//}
 }
 
 void Player::Jump()
@@ -35,6 +35,7 @@ void Player::Reset()
 {
 	_body.setPosition(StartingPosition);
 	_speed = 0;
+	Alive = true;
 }
 
 sf::Rect<float> Player::GetRect() const

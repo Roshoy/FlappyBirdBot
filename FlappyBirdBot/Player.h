@@ -10,6 +10,7 @@ public:
 	void Reset();
 	sf::FloatRect GetRect() const;
 	void SetPosition(const sf::Vector2f & position);
+	bool Alive{true};
 private:
 	const sf::Vector2f StartingPosition;
 	static double Gravity;

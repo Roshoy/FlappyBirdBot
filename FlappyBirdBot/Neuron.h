@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Neuron
 {
@@ -10,9 +11,9 @@ public:
 	Neuron& operator=(const Neuron & other);
 	int GetWeightCount() const;
 	bool SetWeight(double w);
-	double Calculate(double input[]);
+	double Calculate(std::vector<double>) const;
 	void RandomizeAll();
-	void RandomizeALittle();
+	void Mutate(double);
 	double GetWeight(int w) const;
 	~Neuron();
 private:

@@ -13,6 +13,7 @@ public:
 	const double Speed;
 private:
 	const double MinGapHeight;
+	const double MaxGapHeight;
 	void SetUpObstacles(double count);
 	double GetRandomHeight() const;
 	std::vector<Obstacle> _obstacles;

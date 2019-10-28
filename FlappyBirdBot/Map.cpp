@@ -3,7 +3,7 @@
 
 
 Map::Map(const sf::Vector2f& windowSize, double obstacles, double speed) :
-	 Speed(speed), MinGapHeight(windowSize.y/4), _windowSize(windowSize)
+	 Speed(speed), MinGapHeight(windowSize.y/4), MaxGapHeight(windowSize.y / 2), _windowSize(windowSize)
 {
 	SetUpObstacles(obstacles);
 }
@@ -23,7 +23,7 @@ void Map::Update()
 				lastNewPosition = obstacle.NewHeight(_windowSize.y / 10, _windowSize.y * 9 / 10 - MinGapHeight);				
 			}else
 			{
-				obstacle.NewHeight(lastNewPosition + MinGapHeight, _windowSize.y * 9 / 10);
+				obstacle.NewHeight(lastNewPosition + MinGapHeight, std::min(lastNewPosition + MaxGapHeight , _windowSize.y * 9.0 / 10));
 				lastNewPosition = -1;
 			}
 			changedOrdination = true;
@@ -66,7 +66,7 @@ void Map::SetUpObstacles(double count)
 	auto setUpObstacle = [this, count](bool upper, int i, double axis)
 	{
 		_obstacles.emplace_back(Obstacle(
-			upper, sf::Vector2f(_windowSize.x + int(_windowSize.x * (i + 1) / count), axis +
+			upper, sf::Vector2f(_windowSize.x / 4.f + int(_windowSize.x * (i + 1) / count), axis +
 				(upper ? -1 : 1 ) * MinGapHeight / 2),sf::Vector2f(20, _windowSize.y)));
 	};
 

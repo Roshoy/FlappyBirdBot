@@ -5,24 +5,24 @@
 class NeuralBot
 {
 public:
-	NeuralBot();
+	NeuralBot(const std::vector<int> & layersCount);
+	NeuralBot CreateNewBot(const NeuralBot& other) const;
 	void RandomizeAll();
-	void SetWeights(double weights[]);
-	bool Jump(double px, double ox, double oy1, double oy2);
-	int Points;
-	~NeuralBot();
+	bool Jump(double px, double ox, double oy1, double oy2) const;
+	int Points{0};
+	int ObstaclesPassed{0};
+	static int MutationRate;
 	bool operator > (const NeuralBot& str) const
 	{
 		return (Points > str.Points);
 	}
-	double GetReceptorWeight(int i, int w) const;
-	double GetComputingWeight(int i, int w) const;
-	double GetOutputWeight(int w) const;
-	void RandomizeALittle();
+
+	Neuron GetNeuron(int layer, int ind)const;
+	void Mutate(double);
 private:
-	double Normalize(double value);
-	std::vector<Neuron> _receptors;
-	std::vector<Neuron> _computingNeurons;
-	Neuron _output;
+	NeuralBot() = default;
+	std::vector<std::vector<Neuron>> _layers;
+
+	//double Normalize(double value);
 };
 

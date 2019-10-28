@@ -7,29 +7,28 @@
 class Engine
 {
 public:
-	
 	Engine(sf::RenderWindow& window);
-	void TrainWithGenerations();
-	void TrainBots();
-	void RunEngine(NeuralBot& bot);
+	Engine(sf::RenderWindow& window, int playersCount);
+	void RunEngine(std::vector<NeuralBot>& bots);
+	void ResetSeed();
 private:
+	void ControlPlayer(Player & player, NeuralBot & bot);
 	Map _map;
+	std::vector<Player> _players;
 	Player _player;
 	int _numberOfGames;
 	std::vector<sf::Rect<float>> _obstaclesToCollide;
 	const sf::Vector2f StartingPosition;
-	bool PlayerCollided();
-	bool PlayerPassedObstacles();
+	bool PlayerCollided(const Player & player);
+	bool PlayerPassedObstacles(const Player & player);
 	void ResetEngine();
 	void Display();
 	sf::RenderWindow&  _window;
 	int _pointsScored;
-	int _botsNumber = 2000;
-	int _generation = 0;
-	std::vector<NeuralBot> _bots;
-	std::vector<NeuralBot> _bestBots;
-	std::vector<NeuralBot> _newBestBots;
-	void NewGeneration();
-	int RandomBestBotIndex();
+	bool _show{ true };
+	double _distance;
+	int _alivePlayers;
+	int _seed{ 100 };
+
 };
 
