@@ -131,7 +131,8 @@ void Engine::ControlPlayer(Player& player, NeuralBot& bot)
 	if (bot.Jump(normalize(player.GetRect().top, 0, _window.getSize().y - player.GetRect().height),
 		normalize(_obstaclesToCollide[0].left, player.GetRect().left, _window.getSize().x / 4),
 		normalize(_obstaclesToCollide[0].top + _obstaclesToCollide[0].height, 0, _window.getSize().y),
-		normalize(_obstaclesToCollide[1].top, 0, _window.getSize().y)))
+		normalize(_obstaclesToCollide[1].top, 0, _window.getSize().y),
+		normalize(_player.GetSpeed(), -Player::GetMaxSpeed(), Player::GetMaxSpeed())))
 	{
 		player.Jump();
 	}
@@ -144,10 +145,11 @@ void Engine::ControlPlayer(Player& player, NeuralBot& bot)
 
 	if (PlayerCollided(player))
 	{
-		bot.Points += _pointsScored * 100 + _distance / 10.0;
+		bot.Points += _pointsScored * 5000 + _distance / 10.0;
 		bot.ObstaclesPassed = std::max(_pointsScored, bot.ObstaclesPassed);
+		bot.AllObstaclePassed += _pointsScored;
 		player.Alive = false;
-		_alivePlayers--;
+		--_alivePlayers;
 	}
 }
 
@@ -177,7 +179,7 @@ bool Engine::PlayerPassedObstacles(const Player & player)
 
 void Engine::ResetEngine()
 {
-	_seed++;
+	_seed+=100;
 	srand(_seed);
 	_map.Reset();
 	//_player.Reset();

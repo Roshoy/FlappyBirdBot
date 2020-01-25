@@ -8,9 +8,10 @@ public:
 	NeuralBot(const std::vector<int> & layersCount);
 	NeuralBot CreateNewBot(const NeuralBot& other) const;
 	void RandomizeAll();
-	bool Jump(double px, double ox, double oy1, double oy2) const;
-	int Points{0};
-	int ObstaclesPassed{0};
+	bool Jump(double py, double ox, double oy1, double oy2, double s) const;
+	int Points{ 0 };
+	int ObstaclesPassed{ 0 };
+	int AllObstaclePassed{ 0 };
 	static int MutationRate;
 	bool operator > (const NeuralBot& str) const
 	{

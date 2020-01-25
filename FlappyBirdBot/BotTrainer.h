@@ -11,14 +11,17 @@ public:
 	void TrainBots();
 private:
 	Engine _engine;
-	static int _botsNumber;
+	static int BotsNumber;
+	static int BestBotsCount;
 	int _generation = 0;
+	static int TrainingMapsCount;
 	std::vector<NeuralBot> _bots;
 	std::vector<NeuralBot> _bestBots;
 	std::vector<NeuralBot> _newBestBots;
 	void NewGeneration();
-	int _mutationRate{ 10 };
+	int _mutationRate{ 15 };
 	int _generationsWithoutChange{ 1 };
 	int _lastResult{ 0 };
+	NeuralBot ChooseNextBotToReproduce(const int sumOfBestBots) const;
 };
 

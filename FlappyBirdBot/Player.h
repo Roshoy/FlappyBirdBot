@@ -11,6 +11,8 @@ public:
 	sf::FloatRect GetRect() const;
 	void SetPosition(const sf::Vector2f & position);
 	bool Alive{true};
+	double GetSpeed() const { return _speed; };
+	static double GetMaxSpeed() { return MaxSpeed; };
 private:
 	const sf::Vector2f StartingPosition;
 	static double Gravity;

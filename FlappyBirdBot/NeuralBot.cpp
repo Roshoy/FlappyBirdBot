@@ -55,7 +55,7 @@ void NeuralBot::RandomizeAll()
 	}
 }
 
-bool NeuralBot::Jump(double py, double ox, double oy1, double oy2) const
+bool NeuralBot::Jump(double py, double ox, double oy1, double oy2, double s) const
 {
 	std::vector<double> signals1, signals2;
 	bool readFrom1 = false;
@@ -63,6 +63,7 @@ bool NeuralBot::Jump(double py, double ox, double oy1, double oy2) const
 	signals1.push_back(ox);
 	signals1.push_back(oy1);
 	signals1.push_back(oy2);
+	signals1.push_back(s);
 
 	for(int recInd = 0; recInd < signals1.size(); ++recInd)
 	{
